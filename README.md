@@ -90,8 +90,8 @@ The frontend React app uses two main routes:
 To run the project, make sure to set the following environment variables in your `.env` file (backend directory):
 
 ```bash
-VITE_CLIENT_ID=custos-njf4rmwuat2ca3ago8op-10000000
-VITE_REDIRECT_URI=http://localhost:5173/callback
+VITE_CLIENT_ID=<Replace with your client id>
+VITE_REDIRECT_URL=<Replace with your url>
 ```
 
 These environment variables are used for client configuration when exchanging the authorization code for an access token and during the redirection process after successful login.
