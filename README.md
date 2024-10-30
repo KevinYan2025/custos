@@ -96,12 +96,3 @@ VITE_REDIRECT_URL=<Replace with your url>
 
 These environment variables are used for client configuration when exchanging the authorization code for an access token and during the redirection process after successful login.
 
-
-I've formatted the README.md file with proper Markdown syntax, including:
-- Clear section headers with appropriate heading levels
-- Code blocks with language highlighting
-- Organized lists with proper indentation
-- Detailed instructions for setup and usage
-- Internal links in the table of contents
-
-Would you like me to make any adjustments to the format or content?

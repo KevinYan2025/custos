@@ -41,14 +41,24 @@ const LoginPage = () => {
     };
   
     return (
-      <div className="flex justify-center items-center h-screen">
-        <button
-          onClick={handleLogin}
-          className="px-6 py-3 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75"
-        >
-          Login with Custos
-        </button>
-      </div>
+<div className="flex justify-center items-center h-screen bg-gradient-to-r from-blue-400 to-purple-500">
+  <div className="text-center">
+    <h1 className="text-5xl font-extrabold text-white mb-8 tracking-wide shadow-md">
+      VIP Project
+    </h1>
+    <button
+      onClick={handleLogin}
+      className="px-8 py-4 bg-blue-600 text-white font-bold rounded-full shadow-lg transform transition duration-300 hover:bg-blue-700 hover:scale-105 focus:outline-none focus:ring-4 focus:ring-blue-300 focus:ring-opacity-50"
+    >
+      Login with Custos
+    </button>
+    <p className="mt-4 text-white text-sm">
+      Secure access with your Custos account
+    </p>
+  </div>
+</div>
+
+
     );
   };
   

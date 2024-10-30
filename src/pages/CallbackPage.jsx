@@ -74,17 +74,26 @@ useEffect(() => {
 },[accessToken])
 
   return (
-    <div>
-
-      {userInfo && (
-        <div>
-          <h2>Welcome: {userInfo.given_name}</h2>
-          <p>User Name: {userInfo.name}</p>
-          <p>User Email: {userInfo.email}</p>
-          <p>preferred Username : {userInfo.preferred_username}</p>
-        </div>
-      )}
+<div className="flex justify-center items-center min-h-screen bg-gradient-to-r from-blue-400 to-purple-500">
+  {userInfo && (
+    <div className="bg-white shadow-lg rounded-lg p-8 max-w-md w-full text-center">
+      <h2 className="text-3xl font-extrabold text-gray-800 mb-6 shadow-sm">
+        Welcome, {userInfo.given_name}!
+      </h2>
+      <div className="space-y-4">
+        <p className="text-gray-600">
+          <span className="font-semibold">Full Name:</span> {userInfo.name}
+        </p>
+        <p className="text-gray-600">
+          <span className="font-semibold">Email:</span> {userInfo.email}
+        </p>
+        <p className="text-gray-600">
+          <span className="font-semibold">Preferred Username:</span> {userInfo.preferred_username}
+        </p>
+      </div>
     </div>
+  )}
+</div>
   );
 };
 

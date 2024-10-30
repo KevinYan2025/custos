@@ -17,7 +17,7 @@ function App() {
     }
   ]);
   return (
-    <div className='flex items-center'>
+    <div>
       <RouterProvider router={router} />
     </div>
   )
