@@ -2,6 +2,12 @@
 
 This project demonstrates the integration of Custos authentication into a full-stack application, including a React frontend and an Express backend. Users can log in using Custos, and their details (such as name, email, etc.) will be displayed after successful login.
 
+## Video Walkthrough
+
+Here's a walkthrough of implemented required features:
+
+![Video Walkthrough](/custos.gif)
+
 ## Table of Contents
 * [Project Setup](#project-setup)
 * [Technologies Used](#technologies-used)
@@ -65,7 +71,6 @@ This will start the frontend server on http://localhost:5173.
 ## Backend Endpoints
 The backend includes the following routes:
 * `POST /api/v1/identity-management/token`: Exchanges the authorization code for an access token using Custos
-* `POST /api/v1/identity-management/user`: Retrieves user information from Custos using the access token
 * `POST /api/v1/user-management/userinfo`: Fetches and returns user details after authentication from Custos
 
 ## Frontend Workflow
@@ -76,6 +81,7 @@ The frontend React app uses two main routes:
 ### Key Components
 * **LoginPage**: Handles the login process, generates PKCE code verifier and challenge, and redirects to Custos
 * **CallbackPage**: Handles the callback from Custos, exchanges the code for an access token, and fetches user information
+* **AdminPanelButton**:  component is designed to provide access to an admin panel for users who belong to the 'admin' group. It uses Chakra UI for styling and modal functionality. The component includes a button that, when clicked, checks if the user has the required permissions to access the admin panel. If the user is an admin, a modal is displayed with options to view and delete content. The delete button is only enabled for users with the delete scope.
 
 ## Usage
 
@@ -85,6 +91,17 @@ The frontend React app uses two main routes:
 3. You will be redirected to the Custos login page
 4. After successful login, you will be redirected to the callback route (http://localhost:5173/callback)
 5. The application will exchange the authorization code for an access token and display the user's information (e.g., name, email)
+6. User who have is in the admin group will have the access to the admin panel. Admin also have different scope such as delete which allow the user to perform delete operation.
+
+### Authorization Logic
+The application uses role-based access control (RBAC) to manage access to specific resources and actions based on user roles and scopes. The AdminPanelButton component checks if the user belongs to the 'admin' group and has the required scopes before granting access to the admin panel and delete functionality.
+
+## Key Features
+* Admin Check: The AdminPanelButton checks if the user belongs to the 'admin' group before opening the admin panel modal.
+* Delete Permission: The delete button inside the modal is always visible but only enabled for users with the delete:content scope.
+* Chakra UI: Utilizes Chakra UI components for styling and modal functionality.
+Demonstrating Authorization Logic
+* The authorization logic is demonstrated in the application by conditionally rendering UI elements based on user roles and scopes. For example, the AdminPanelButton component always displays the delete button, but it is only enabled if the user has the delete scope. This ensures that only authorized users can perform delete operations.
 
 ## Environment Variables
 To run the project, make sure to set the following environment variables in your `.env` file (backend directory):

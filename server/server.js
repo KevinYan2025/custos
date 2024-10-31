@@ -1,15 +1,15 @@
 import cors from 'cors';
 import express from 'express';
-import fetch from 'node-fetch'; // Import node-fetch
-import dotenv from 'dotenv'; // Import dotenv
-dotenv.config(); // Load the .env file
+import fetch from 'node-fetch';
+import dotenv from 'dotenv'; 
+dotenv.config();
 const app = express();
 
 
-// CORS options to allow credentials
+
 const corsOptions = {
-  origin: 'http://localhost:5173', // Allow requests only from your React app
-  credentials: true, // Allow sending credentials (cookies, authorization headers)
+  origin: 'http://localhost:5173', 
+  credentials: true,
 };
 
 app.use(cors(corsOptions));
@@ -36,15 +36,15 @@ app.post('/api/v1/identity-management/token', async (req, res) => {
       });
       // Check if the response is OK and in JSON format
       if (!response.ok) {
-        const errorText = await response.text(); // Get the error text (likely HTML)
+        const errorText = await response.text(); 
         console.error('Error response from Custos:', errorText);
-        return res.status(response.status).send('Error: ' + errorText); // Return error message
+        return res.status(response.status).send('Error: ' + errorText); 
       }
   
-      const data = await response.json();  // Parse the JSON response
+      const data = await response.json(); 
       console.log(data.access_token);
       
-      res.json(data.access_token); // Send the data back to the client
+      res.json(data.access_token);
   
     } catch (error) {
       console.error('Unexpected error occurred:', error);
@@ -52,36 +52,6 @@ app.post('/api/v1/identity-management/token', async (req, res) => {
     }
   });
 
-  app.post('/api/v1/identity-management/user', async (req, res) => {
-
-    const {access_token,code} = req.body;
-    console.log("access_token", access_token);
-    try {
-      const response = await fetch(`https://api.playground.usecustos.org/api/v1/identity-management/user?access_token=${access_token}`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${access_token}`,  
-        },
-      });
-      if (!response.ok) {
-        const errorText = await response.text();
-        console.error('Error response from Custos:', errorText);
-        console.log(response);
-        
-        return res.status(response.status).send('Error: ' + errorText);
-      }
-      const data = await response.json();
-      console.log("userInfo:", data);
-      
-      res.json(data);
-
-    } catch (error) {
-      console.log('Error:', error);
-      
-    }
-
-  })
 
   app.post('/api/v1/user-management/userinfo', async (req, res) => {
     const {access_token,code} = req.body;
@@ -105,9 +75,9 @@ app.post('/api/v1/identity-management/token', async (req, res) => {
         return res.status(response.status).json({ error: 'Failed to fetch user info' });
       }
       
-      const data = await response.json();  // Parse the response data as JSON
+      const data = await response.json(); 
       console.log(data);
-      res.json(data);  // Send the parsed data back in the response
+      res.json(data); 
     } catch (error) {
       console.log('Error:', error);
       throw error;
@@ -115,69 +85,6 @@ app.post('/api/v1/identity-management/token', async (req, res) => {
     }
   })
 
-  app.post('/api/v1/group-management/groups', async (req, res) => {
-  const { access_token, groupData } = req.body;
-
-  try {
-    const response = await fetch('https://api.playground.usecustos.org/api/v1/group-management/groups', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${access_token}`,
-        'client_id': process.env.CLIENT_ID,
-      },
-      body: JSON.stringify(groupData),
-    });
-
-    if (!response.ok) {
-      const errorText = await response.text();
-      console.error('Error response from Custos:', errorText);
-      return res.status(response.status).send('Error: ' + errorText);
-    }
-
-    const data = await response.json();
-    console.log("Group created:", data);
-
-    res.json(data);
-
-  } catch (error) {
-    console.log('Error:', error);
-    res.status(500).send('Unexpected error occurred');
-  }
-});
-
-app.post('/api/v1/group-management/groups', async (req, res) => {
-  const { access_token, groupData } = req.body;
-
-  try {
-    const response = await fetch('https://api.playground.usecustos.org/api/v1/group-management/groups', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${access_token}`,
-        'client_id': process.env.CLIENT_ID,
-      },
-      body: JSON.stringify(groupData),
-    });
-
-    if (!response.ok) {
-      const errorText = await response.text();
-      console.error('Error response from Custos:', errorText);
-      return res.status(response.status).send('Error: ' + errorText);
-    }
-
-    const data = await response.json();
-    console.log("Group created:", data);
-
-    res.json(data);
-
-  } catch (error) {
-    console.log('Error:', error);
-    res.status(500).send('Unexpected error occurred');
-  }
-});
-
-// Start the server
 app.listen(3000, () => {
   console.log('Server is listening on port 3000');
 });
