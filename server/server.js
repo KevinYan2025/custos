@@ -90,6 +90,9 @@ app.post('/api/v1/identity-management/token', async (req, res) => {
         console.log("No access token");
         return; 
       }
+      console.log("client id:",process.env.CLIENT_ID);
+      
+      console.log("access_token", access_token);
       const response = await fetch(`https://api.playground.usecustos.org/api/v1/user-management/userinfo?client_id=${process.env.CLIENT_ID}`, {
         method: 'GET',
         headers: {
@@ -111,6 +114,68 @@ app.post('/api/v1/identity-management/token', async (req, res) => {
       
     }
   })
+
+  app.post('/api/v1/group-management/groups', async (req, res) => {
+  const { access_token, groupData } = req.body;
+
+  try {
+    const response = await fetch('https://api.playground.usecustos.org/api/v1/group-management/groups', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${access_token}`,
+        'client_id': process.env.CLIENT_ID,
+      },
+      body: JSON.stringify(groupData),
+    });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error('Error response from Custos:', errorText);
+      return res.status(response.status).send('Error: ' + errorText);
+    }
+
+    const data = await response.json();
+    console.log("Group created:", data);
+
+    res.json(data);
+
+  } catch (error) {
+    console.log('Error:', error);
+    res.status(500).send('Unexpected error occurred');
+  }
+});
+
+app.post('/api/v1/group-management/groups', async (req, res) => {
+  const { access_token, groupData } = req.body;
+
+  try {
+    const response = await fetch('https://api.playground.usecustos.org/api/v1/group-management/groups', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${access_token}`,
+        'client_id': process.env.CLIENT_ID,
+      },
+      body: JSON.stringify(groupData),
+    });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error('Error response from Custos:', errorText);
+      return res.status(response.status).send('Error: ' + errorText);
+    }
+
+    const data = await response.json();
+    console.log("Group created:", data);
+
+    res.json(data);
+
+  } catch (error) {
+    console.log('Error:', error);
+    res.status(500).send('Unexpected error occurred');
+  }
+});
 
 // Start the server
 app.listen(3000, () => {

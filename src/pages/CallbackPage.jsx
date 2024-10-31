@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useLocation, redirect } from 'react-router-dom';
 import axios from 'axios';
+import AdminPanelButton from '../components/AdminPanelButton';
 
 const Callback = () => {
   const [userInfo, setUserInfo] = useState(null);
@@ -91,6 +92,7 @@ useEffect(() => {
           <span className="font-semibold">Preferred Username:</span> {userInfo.preferred_username}
         </p>
       </div>
+      <AdminPanelButton user={userInfo}/>
     </div>
   )}
 </div>
